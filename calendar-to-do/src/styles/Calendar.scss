@@ -1,0 +1,44 @@
+.calendar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .month-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    margin-bottom: 20px;
+  }
+  
+  .days-wrapper {
+    display: grid;
+    grid-template-columns: repeat(7, 40px);
+    gap: 30px;
+    margin-bottom: 20px;
+  }
+  
+  .mini-calendars {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .mini-calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+  }
+  
+  .mini-calendar h3 {
+    margin-bottom: 10px;
+  }
+  
+  .mini-calendar .day-wrapper {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+  

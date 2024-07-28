@@ -1,0 +1,12 @@
+.day-wrapper {
+    background-color: rgb(230, 196, 24);
+    border-radius: 15px;
+    padding: 10px;
+    position: relative;
+    cursor: pointer;
+  
+    &.has-event {
+      box-shadow: 0 0 10px 2px red;
+    }
+  }
+  
