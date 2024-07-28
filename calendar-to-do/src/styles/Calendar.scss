@@ -1,3 +1,4 @@
+// src/styles/Calendar.scss
 .calendar-wrapper {
     display: flex;
     flex-direction: column;
@@ -21,7 +22,8 @@
   
   .mini-calendars {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; 
+    gap: 200px; 
     width: 100%;
   }
   
@@ -39,6 +41,6 @@
   .mini-calendar .days-wrapper {
     display: grid;
     grid-template-columns: repeat(7, 30px);
-    gap: 5px;
+    gap: 15px;
   }
   
