@@ -1,6 +1,8 @@
 # calendar-to-do-list
 React.js
 
+Use React Strict Mode 
+
 
 Set up a backend server:
 
