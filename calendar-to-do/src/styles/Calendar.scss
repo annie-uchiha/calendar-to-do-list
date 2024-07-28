@@ -15,7 +15,7 @@
   .days-wrapper {
     display: grid;
     grid-template-columns: repeat(7, 40px);
-    gap: 30px;
+    gap: 10px;
     margin-bottom: 20px;
   }
   
@@ -29,16 +29,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 150px;
+    width: 250px;
   }
   
   .mini-calendar h3 {
     margin-bottom: 10px;
   }
   
-  .mini-calendar .day-wrapper {
-    width: 30px;
-    height: 30px;
-    font-size: 12px;
+  .mini-calendar .days-wrapper {
+    display: grid;
+    grid-template-columns: repeat(7, 30px);
+    gap: 5px;
   }
   

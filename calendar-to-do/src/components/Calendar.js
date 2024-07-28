@@ -23,14 +23,16 @@ const Calendar = () => {
   const addEvent = (date, event) => {
     setEvents((prevEvents) => ({
       ...prevEvents,
-      [date]: [...(prevEvents[date] || []), event],
+      [date]: [...(prevEvents[date] || []), { text: event, done: false }],
     }));
   };
 
   const toggleTaskDone = (date, index) => {
     setEvents((prevEvents) => {
       const newEvents = { ...prevEvents };
-      newEvents[date][index].done = !newEvents[date][index].done;
+      newEvents[date] = newEvents[date].map((event, i) =>
+        i === index ? { ...event, done: !event.done } : event
+      );
       return newEvents;
     });
   };
@@ -83,11 +85,15 @@ const Calendar = () => {
       <div className="mini-calendars">
         <div className="mini-calendar">
           <h3>Previous Month</h3>
-          {renderDays((currentMonth - 1 + 12) % 12, currentYear - (currentMonth === 0 ? 1 : 0))}
+          <div className="days-wrapper">
+            {renderDays((currentMonth - 1 + 12) % 12, currentYear - (currentMonth === 0 ? 1 : 0))}
+          </div>
         </div>
         <div className="mini-calendar">
           <h3>Next Month</h3>
-          {renderDays((currentMonth + 1) % 12, currentYear + (currentMonth === 11 ? 1 : 0))}
+          <div className="days-wrapper">
+            {renderDays((currentMonth + 1) % 12, currentYear + (currentMonth === 11 ? 1 : 0))}
+          </div>
         </div>
       </div>
 

@@ -1,27 +1,53 @@
+// src/components/EventPopup.js
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import '../styles/EventPopup.scss';
 
-const EventPopup = ({ selectedDate, onClose, addEvent }) => {
-  const [event, setEvent] = useState('');
+const EventPopup = ({ date, events, onClose, onAddEvent, onToggleTask }) => {
+  const [newEvent, setNewEvent] = useState('');
 
   const handleAddEvent = () => {
-    addEvent(selectedDate, event);
-    onClose();
+    if (newEvent.trim()) {
+      onAddEvent(newEvent);
+      setNewEvent('');
+    }
   };
 
   return (
-    <div className="popup-wrapper">
-      <h2>Add Event</h2>
-      <input
-        type="text"
-        value={event}
-        onChange={(e) => setEvent(e.target.value)}
-        placeholder="Event"
-      />
-      <button onClick={handleAddEvent}>Add</button>
-      <button onClick={onClose}>Close</button>
+    <div className="event-popup">
+      <div className="popup-content">
+        <h2>Events on {date}</h2>
+        <ul>
+          {events && events.map((event, index) => (
+            <li key={index} className={event.done ? 'done' : ''}>
+              <span onClick={() => onToggleTask(index)}>{event.text}</span>
+            </li>
+          ))}
+        </ul>
+        <input
+          type="text"
+          value={newEvent}
+          onChange={(e) => setNewEvent(e.target.value)}
+          placeholder="Add a new event"
+        />
+        <button onClick={handleAddEvent}>Add Event</button>
+        <button onClick={onClose}>Close</button>
+      </div>
     </div>
   );
+};
+
+EventPopup.propTypes = {
+  date: PropTypes.string.isRequired,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string,
+      done: PropTypes.bool,
+    })
+  ).isRequired,
+  onClose: PropTypes.func.isRequired,
+  onAddEvent: PropTypes.func.isRequired,
+  onToggleTask: PropTypes.func.isRequired,
 };
 
 export default EventPopup;
