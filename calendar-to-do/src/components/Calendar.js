@@ -15,24 +15,22 @@ const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
-  const onDayClick = (day) => {
-    setSelectedDate(`${day} ${months[currentMonth]} ${currentYear}`);
+  const onDayClick = (day, month, year) => {
+    setSelectedDate(`${day} ${months[month]} ${year}`);
     setShowPopup(true);
   };
 
   const addEvent = (date, event) => {
     setEvents((prevEvents) => ({
       ...prevEvents,
-      [date]: [...(prevEvents[date] || []), { text: event, done: false }],
+      [date]: [...(prevEvents[date] || []), event],
     }));
   };
 
   const toggleTaskDone = (date, index) => {
     setEvents((prevEvents) => {
       const newEvents = { ...prevEvents };
-      newEvents[date] = newEvents[date].map((event, i) =>
-        i === index ? { ...event, done: !event.done } : event
-      );
+      newEvents[date][index].done = !newEvents[date][index].done;
       return newEvents;
     });
   };
@@ -66,7 +64,7 @@ const Calendar = () => {
           key={day}
           day={day}
           hasEvent={hasEvent}
-          onDayClick={() => onDayClick(day)}
+          onDayClick={() => onDayClick(day, month, year)}
         />
       );
     });

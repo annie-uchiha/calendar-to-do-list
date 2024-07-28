@@ -1,4 +1,3 @@
-// src/components/EventPopup.js
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/EventPopup.scss';
@@ -8,7 +7,7 @@ const EventPopup = ({ date, events, onClose, onAddEvent, onToggleTask }) => {
 
   const handleAddEvent = () => {
     if (newEvent.trim()) {
-      onAddEvent(newEvent);
+      onAddEvent({ text: newEvent, done: false });
       setNewEvent('');
     }
   };
@@ -41,10 +40,10 @@ EventPopup.propTypes = {
   date: PropTypes.string.isRequired,
   events: PropTypes.arrayOf(
     PropTypes.shape({
-      text: PropTypes.string,
-      done: PropTypes.bool,
+      text: PropTypes.string.isRequired,
+      done: PropTypes.bool.isRequired,
     })
-  ).isRequired,
+  ),
   onClose: PropTypes.func.isRequired,
   onAddEvent: PropTypes.func.isRequired,
   onToggleTask: PropTypes.func.isRequired,
