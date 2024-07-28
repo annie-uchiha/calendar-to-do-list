@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CalendarDay from './CalendarDay';
 import EventPopup from './EventPopup';
 import '../styles/Calendar.scss';
@@ -15,6 +15,17 @@ const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
+  useEffect(() => {
+    const savedEvents = localStorage.getItem('calendarEvents');
+    if (savedEvents) {
+      setEvents(JSON.parse(savedEvents));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('calendarEvents', JSON.stringify(events));
+  }, [events]);
+
   const onDayClick = (day, month, year) => {
     setSelectedDate(`${day} ${months[month]} ${year}`);
     setShowPopup(true);
@@ -30,7 +41,9 @@ const Calendar = () => {
   const toggleTaskDone = (date, index) => {
     setEvents((prevEvents) => {
       const newEvents = { ...prevEvents };
-      newEvents[date][index].done = !newEvents[date][index].done;
+      newEvents[date] = newEvents[date].map((event, i) =>
+        i === index ? { ...event, done: !event.done } : event
+      );
       return newEvents;
     });
   };
@@ -98,7 +111,7 @@ const Calendar = () => {
       {showPopup && selectedDate && (
         <EventPopup
           date={selectedDate}
-          events={events[selectedDate]}
+          events={events[selectedDate] || []}
           onClose={() => setShowPopup(false)}
           onAddEvent={(event) => addEvent(selectedDate, event)}
           onToggleTask={(index) => toggleTaskDone(selectedDate, index)}

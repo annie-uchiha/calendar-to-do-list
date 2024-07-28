@@ -19,7 +19,10 @@ const EventPopup = ({ date, events, onClose, onAddEvent, onToggleTask }) => {
         <ul>
           {events && events.map((event, index) => (
             <li key={index} className={event.done ? 'done' : ''}>
-              <span onClick={() => onToggleTask(index)}>{event.text}</span>
+              <span>{event.text}</span>
+              <button onClick={() => onToggleTask(index)}>
+                {event.done ? 'Undo' : 'Done'}
+              </button>
             </li>
           ))}
         </ul>
@@ -43,7 +46,7 @@ EventPopup.propTypes = {
       text: PropTypes.string.isRequired,
       done: PropTypes.bool.isRequired,
     })
-  ),
+  ).isRequired,
   onClose: PropTypes.func.isRequired,
   onAddEvent: PropTypes.func.isRequired,
   onToggleTask: PropTypes.func.isRequired,
