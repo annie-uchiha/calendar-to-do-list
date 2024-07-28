@@ -1,40 +1,51 @@
-import React from 'react';
-import styled from 'styled-components';
+// src/components/TaskPopup.js
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import '../styles/TaskPopup.css';
 
-const PopupWrapper = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border: 1px solid black;
-  z-index: 1000;
-`;
+const TaskPopup = ({ selectedDate, events, onClose, onAddEvent, onToggleTask }) => {
+  const [newEvent, setNewEvent] = useState('');
 
-const TaskItem = styled.div`
-  text-decoration: ${({ done }) => (done ? 'line-through' : 'none')};
-`;
-
-const TaskPopup = ({ selectedDate, events, onClose, toggleTask }) => {
-  const tasks = events.filter(event => event.date === selectedDate.toString());
+  const handleAddEvent = () => {
+    onAddEvent(selectedDate, { text: newEvent, done: false });
+    setNewEvent('');
+  };
 
   return (
-    <PopupWrapper>
-      <h2>Tasks for {selectedDate.toString()}</h2>
-      {tasks.map((task, index) => (
-        <TaskItem key={index} done={task.done}>
-          <input
-            type="checkbox"
-            checked={task.done}
-            onChange={() => toggleTask(task)}
-          />
-          {task.event}
-        </TaskItem>
-      ))}
-      <button onClick={onClose}>Close</button>
-    </PopupWrapper>
+    <div className="task-popup">
+      <div className="popup-content">
+        <h2>Tasks on {selectedDate}</h2>
+        <button onClick={onClose}>Close</button>
+        <ul>
+          {events && events.map((event, index) => (
+            <li key={index} className={event.done ? 'done' : ''}>
+              <span onClick={() => onToggleTask(event)}>{event.event}</span>
+            </li>
+          ))}
+        </ul>
+        <input
+          type="text"
+          value={newEvent}
+          onChange={(e) => setNewEvent(e.target.value)}
+          placeholder="New task"
+        />
+        <button onClick={handleAddEvent}>Add Task</button>
+      </div>
+    </div>
   );
+};
+
+TaskPopup.propTypes = {
+  selectedDate: PropTypes.string.isRequired,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      done: PropTypes.bool.isRequired,
+    })
+  ),
+  onClose: PropTypes.func.isRequired,
+  onAddEvent: PropTypes.func.isRequired,
+  onToggleTask: PropTypes.func.isRequired,
 };
 
 export default TaskPopup;

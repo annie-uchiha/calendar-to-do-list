@@ -1,15 +1,19 @@
 import React from 'react';
-import { format, isSameDay } from 'date-fns';
+import PropTypes from 'prop-types';
 import '../styles/CalendarDay.scss';
 
-const CalendarDay = ({ day, formattedDate, events, onDayClick }) => {
-  const hasEvent = events.some(event => isSameDay(new Date(event.date), day));
-  
+const CalendarDay = ({ day, hasEvent, onDayClick }) => {
   return (
-    <div className={`day-wrapper ${hasEvent ? 'has-event' : ''}`} onClick={() => onDayClick(day)}>
-      {formattedDate}
+    <div className={`calendar-day ${hasEvent ? 'has-event' : ''}`} onClick={onDayClick}>
+      {day}
     </div>
   );
+};
+
+CalendarDay.propTypes = {
+  day: PropTypes.number.isRequired,
+  hasEvent: PropTypes.bool.isRequired,
+  onDayClick: PropTypes.func.isRequired,
 };
 
 export default CalendarDay;
