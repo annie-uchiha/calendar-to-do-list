@@ -18,3 +18,4 @@ Modify React frontend:
     Update your frontend to make HTTP requests to the backend server to fetch and manage events.
     Use Axios for the HTTP requests.
 
+React + Node.js + MongoDB provides a more modular approach with a separation between front-end and back-end, allowing for flexibility and modern JavaScript practices. Helps build a highly interactive front end and has a more decoupled architecture.
