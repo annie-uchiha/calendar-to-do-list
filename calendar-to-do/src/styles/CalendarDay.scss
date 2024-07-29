@@ -4,13 +4,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #fff;
+    background-color: #726e6e;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
   }
   
   .calendar-day.has-event {
-    background-color: rgb(255, 38, 0);
+    border: 3px solid rgb(255, 38, 0);
   }
   
